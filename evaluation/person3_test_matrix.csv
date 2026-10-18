@@ -1,0 +1,14 @@
+scenario_id,level,description,input,expected_events,event_type,requires
+A,integration,No person in view,evaluation/outputs/A.jsonl,0,ZONE_INTRUSION,person2_engine
+B,integration,Person outside restricted region,evaluation/outputs/B.jsonl,0,ZONE_INTRUSION,person2_engine
+C,integration,Person enters region,evaluation/outputs/C.jsonl,1,ZONE_INTRUSION,person2_engine
+D,integration,Person remains inside region (no flood),evaluation/outputs/D.jsonl,1,ZONE_INTRUSION,person2_engine
+E,integration,Person leaves region (ZONE_CLEAR if implemented),evaluation/outputs/E.jsonl,1,ZONE_CLEAR,person2_engine
+F,integration,Missing tracking id (documented fallback),evaluation/outputs/F.jsonl,,ZONE_INTRUSION,person2_engine
+G,integration,Invalid/incomplete metadata rejected safely,evaluation/outputs/G.jsonl,0,ZONE_INTRUSION,person2_engine
+H,live,Repeated clean startup of PipeGen pipeline,,,,pipegen_run
+I,integration,Optional publisher failure keeps local JSONL,evaluation/outputs/I.jsonl,1,ZONE_INTRUSION,person2_engine
+J,live,Real end-to-end PipeGen run produces output/event,evaluation/outputs/J.jsonl,,ZONE_INTRUSION,pipegen_run
+FX1,fixture-selfcheck,Evaluator on single-intrusion fixture,tests/samples/fixture_single_intrusion.jsonl,1,ZONE_INTRUSION,none
+FX2,fixture-selfcheck,Evaluator on empty fixture,tests/samples/fixture_empty.jsonl,0,ZONE_INTRUSION,none
+FX3,fixture-selfcheck,Evaluator flags duplicate-track fixture (expects 1; fixture has 2 => FAIL is correct detection),tests/samples/fixture_duplicate_intrusion.jsonl,1,ZONE_INTRUSION,none

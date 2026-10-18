@@ -24,3 +24,8 @@ htmlcov/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Compiled Engine binaries and large weights
+*.engine
+*.plan
+

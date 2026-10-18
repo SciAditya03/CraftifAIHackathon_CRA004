@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 830" width="1100" height="830">
+  <style>
+    .title { font-family: sans-serif; font-size: 22px; font-weight: bold; fill: #1f2328; }
+    .subtitle { font-family: sans-serif; font-size: 14px; fill: #656d76; }
+    .node-box { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 2; rx: 8; ry: 8; }
+    .node-header { font-family: sans-serif; font-size: 15px; font-weight: bold; fill: #0969da; }
+    .node-desc { font-family: monospace; font-size: 13px; fill: #24292f; }
+    .node-cat { font-family: sans-serif; font-size: 12px; font-weight: 600; fill: #76b900; }
+    .arrow { stroke: #57606a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#57606a" />
+    </marker>
+  </defs>
+  <!-- Background -->
+  <rect width="1100" height="830" fill="#ffffff" />
+  <!-- Title -->
+  <text x="40" y="45" class="title">Workplace Safety Sentinel Pipeline IR</text>
+  <text x="40" y="70" class="subtitle">CraftifAI PipeGen v0.5.1 | Pipeline ID: pipegen-sentinel-track-a-01</text>
+  <rect x="100" y="100" width="900" height="65" class="node-box" />
+  <text x="120" y="125" class="node-header">[1] node_source</text>
+  <text x="450" y="125" class="node-cat">CATEGORY: INPUT</text>
+  <text x="120" y="150" class="node-desc">Plugin: filesrc</text>
+  <line x1="550" y1="165" x2="550" y2="195" class="arrow" />
+  <rect x="100" y="195" width="900" height="65" class="node-box" />
+  <text x="120" y="220" class="node-header">[2] node_parser_decoder</text>
+  <text x="450" y="220" class="node-cat">CATEGORY: DECODER</text>
+  <text x="120" y="245" class="node-desc">Plugin: qtdemux_h264parse_nvv4l2decoder</text>
+  <line x1="550" y1="260" x2="550" y2="290" class="arrow" />
+  <rect x="100" y="290" width="900" height="65" class="node-box" />
+  <text x="120" y="315" class="node-header">[3] node_streammux</text>
+  <text x="450" y="315" class="node-cat">CATEGORY: MUXER</text>
+  <text x="120" y="340" class="node-desc">Plugin: nvstreammux</text>
+  <line x1="550" y1="355" x2="550" y2="385" class="arrow" />
+  <rect x="100" y="385" width="900" height="65" class="node-box" />
+  <text x="120" y="410" class="node-header">[4] node_nvinfer_tensorrt</text>
+  <text x="450" y="410" class="node-cat">CATEGORY: INFERENCE</text>
+  <text x="120" y="435" class="node-desc">Plugin: nvinfer</text>
+  <line x1="550" y1="450" x2="550" y2="480" class="arrow" />
+  <rect x="100" y="480" width="900" height="65" class="node-box" />
+  <text x="120" y="505" class="node-header">[5] node_nvtracker</text>
+  <text x="450" y="505" class="node-cat">CATEGORY: TRACKER</text>
+  <text x="120" y="530" class="node-desc">Plugin: nvtracker</text>
+  <line x1="550" y1="545" x2="550" y2="575" class="arrow" />
+  <rect x="100" y="575" width="900" height="65" class="node-box" />
+  <text x="120" y="600" class="node-header">[6] node_safety_sentinel_probe</text>
+  <text x="450" y="600" class="node-cat">CATEGORY: ANALYTICS</text>
+  <text x="120" y="625" class="node-desc">Plugin: safety_events.engine</text>
+  <line x1="550" y1="640" x2="550" y2="670" class="arrow" />
+  <rect x="100" y="670" width="900" height="65" class="node-box" />
+  <text x="120" y="695" class="node-header">[7] node_osd_sink</text>
+  <text x="450" y="695" class="node-cat">CATEGORY: SINK</text>
+  <text x="120" y="720" class="node-desc">Plugin: nvdsosd_nvoverlaysink</text>
+</svg>

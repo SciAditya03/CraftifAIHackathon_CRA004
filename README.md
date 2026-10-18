@@ -65,13 +65,15 @@ Safety Sentinel Engine:
 
 ## 4. CraftifAI PipeGen Five-Stage Gates
 
+Detailed walkthrough: [`docs/pipegen-five-stages.md`](docs/pipegen-five-stages.md) | Perception Handoff Contract: [`docs/person1-perception-handoff.md`](docs/person1-perception-handoff.md)
+
 All five mandatory PipeGen gates have been executed and documented:
 
 1. **Requirement Stage (`pipegen-export/requirement.yaml`):** Defined industrial person detection, restricted dangerous zones, real-time latency target ($\le 33\text{ ms}$), and JSONL incident output.
-2. **Pipeline IR Stage (`pipegen-export/pipeline_ir.json`):** Generated 7-node declarative computation graph linking video demuxing, GPU decoder, nvstreammux, TensorRT nvinfer, nvtracker, safety pad probe, and OSD sink.
+2. **Pipeline IR Stage (`pipegen-export/pipeline_ir.json`):** Generated 7-node declarative computation graph linking video demuxing, GPU decoder, nvstreammux, TensorRT nvinfer, nvtracker, safety pad probe, and OSD sink. Renderable via `python scripts/render_pipeline_ir.py`.
 3. **Model Selection Stage (`pipegen-export/model_config.json`):** Selected CSPDarknet/YOLO person detector ($640\times 640$ input) from the PipeGen catalog.
-4. **Compiler Stage (`pipegen-export/speed_report.json`):** Compiled engine to **TensorRT FP16**, dropping latency from 42.14 ms to **9.82 ms** (**4.29x speedup**, 101.8 FPS engine / 78.4 FPS end-to-end).
-5. **Run Stage (`run_sentinel.py` / `demo/simulate_live_run.py`):** Live execution on local video stream generating validated actionable events.
+4. **Compiler Stage (`pipegen-export/speed_report.json`):** Compiled engine to **TensorRT FP16** via `python pipegen-export/compile_tensorrt.py`, dropping latency from 42.14 ms to **9.82 ms** (**4.29x speedup**, 101.8 FPS engine / 78.4 FPS end-to-end).
+5. **Run Stage (`pipegen-export/deepstream_pipeline.py` / `run_sentinel.py`):** Live execution on local video stream with GStreamer pad probe streaming validated actionable events.
 
 ---
 
@@ -140,6 +142,18 @@ python run_sentinel.py --stream tests/samples/mock_pipegen_stream.jsonl --fps 15
 python run_sentinel.py --deepstream-json tests/samples/deepstream_sample.json
 ```
 
+### Step 5: Execute PipeGen Compilation & DeepStream Pipeline (Person 1 Lead)
+```bash
+# Compile TensorRT FP16 engine and generate speed report (Stage 4):
+python pipegen-export/compile_tensorrt.py --precision FP16 --workspace 2048
+
+# Render Pipeline IR DAG diagram (Stage 2):
+python scripts/render_pipeline_ir.py
+
+# Run live DeepStream pipeline with pad probe (Stage 5):
+python pipegen-export/deepstream_pipeline.py --source test_assets/safety_video.mp4
+```
+
 ---
 
 ## 7. Evaluation & Test Matrix Results
@@ -181,13 +195,23 @@ workplace-safety-sentinel/
 │   ├── event-schema.md                # Frozen schema v1.0 field specifications
 │   ├── evaluation-protocol.md         # Methodology for measuring accuracy & latency
 │   ├── test-plan.md                   # Complete test cases (TC-01 through TC-08)
-│   └── evidence-checklist.md          # Track A submission gate verification
+│   ├── evidence-checklist.md          # Track A submission gate verification
+│   ├── pipegen-five-stages.md         # PipeGen v0.5.1 5-stage comprehensive guide
+│   └── person1-perception-handoff.md  # Perception-to-safety metadata contract
 ├── pipegen-export/                    # Mandatory PipeGen export artifacts
 │   ├── README.md                      # PipeGen 5-stage workflow guide
 │   ├── requirement.yaml               # Stage 1: Requirement specification
 │   ├── pipeline_ir.json               # Stage 2: Pipeline IR computation graph
 │   ├── model_config.json              # Stage 3: Person detector model configuration
-│   └── speed_report.json              # Stage 4: TensorRT engine speed & latency report
+│   ├── speed_report.json              # Stage 4: TensorRT engine speed & latency report
+│   ├── compile_tensorrt.py            # Stage 4: Engine compilation & profiling utility
+│   ├── deepstream_pipeline.py         # Stage 5: Live DeepStream GStreamer pipeline & pad probe
+│   ├── pipegen_cli_workflow.sh        # Stage 1-5 automated CLI workflow script
+│   ├── config_infer_primary.txt       # DeepStream nvinfer configuration file
+│   ├── config_tracker_NvSORT.yml      # DeepStream NvSORT tracker configuration
+│   └── labels.txt                     # Class labels (person)
+├── scripts/
+│   └── render_pipeline_ir.py          # Visual DAG diagram renderer (SVG generator)
 ├── safety_events/                     # Person 2: Core Safety Logic Package
 │   ├── __init__.py                    # Public API exports
 │   ├── schema.json                    # Formal JSON Schema (Draft 2020-12)

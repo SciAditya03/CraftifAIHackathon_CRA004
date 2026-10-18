@@ -93,9 +93,9 @@ def test_F_missing_track_id_no_crash_no_invented_id(engine):
 @pytest.mark.integration
 @pytest.mark.parametrize("payload", [
     {},
-    pytest.param({"detections": None}, marks=pytest.mark.xfail(
-        strict=True, reason="ISSUE-1 (Person 2): adapters.parse_pipegen_frame raises TypeError on null detections")),
-    {"detections": [{}]}, {"detections": [{"class_name": "person", "bbox": "bad"}]},
+    {"detections": None},  # Resolved (ISSUE-1 fixed)
+    {"detections": [{}]},
+    {"detections": [{"class_name": "person", "bbox": "bad"}]},
     {"detections": [{"class_name": "person", "confidence": "high", "bbox": [0.1, 0.1]}]},
 ])
 def test_G_invalid_metadata_does_not_crash(engine, payload):

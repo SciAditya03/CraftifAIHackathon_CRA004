@@ -41,7 +41,9 @@ def parse_pipegen_frame(
     )
 
     detections: List[RawDetection] = []
-    raw_list = payload.get("detections", [])
+    raw_list = payload.get("detections")
+    if not isinstance(raw_list, list):
+        return detections
 
     for item in raw_list:
         parsed = parse_single_detection(
@@ -171,53 +173,69 @@ def parse_single_detection(
     source: str = "generic",
 ) -> Optional[RawDetection]:
     """Parse a single detection record with robust error tolerance."""
+    if not isinstance(item, dict):
+        return None
+
     if timestamp_utc is None:
         timestamp_utc = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
-    bbox_val = item.get("bbox")
-    if not bbox_val:
-        return None
+    try:
+        bbox_val = item.get("bbox")
+        if not bbox_val:
+            return None
 
-    bbox: Optional[BoundingBox] = None
-    if isinstance(bbox_val, (list, tuple)) and len(bbox_val) == 4:
-        bbox = BoundingBox(
-            left=float(bbox_val[0]),
-            top=float(bbox_val[1]),
-            right=float(bbox_val[2]),
-            bottom=float(bbox_val[3]),
+        bbox: Optional[BoundingBox] = None
+        if isinstance(bbox_val, (list, tuple)) and len(bbox_val) == 4:
+            bbox = BoundingBox(
+                left=float(bbox_val[0]),
+                top=float(bbox_val[1]),
+                right=float(bbox_val[2]),
+                bottom=float(bbox_val[3]),
+            )
+        elif isinstance(bbox_val, dict):
+            if "left" in bbox_val and "right" in bbox_val:
+                bbox = BoundingBox(
+                    left=float(bbox_val["left"]),
+                    top=float(bbox_val["top"]),
+                    right=float(bbox_val["right"]),
+                    bottom=float(bbox_val["bottom"]),
+                )
+            elif "x" in bbox_val and "width" in bbox_val:
+                bbox = BoundingBox(
+                    left=float(bbox_val["x"]),
+                    top=float(bbox_val["y"]),
+                    right=float(bbox_val["x"] + bbox_val["width"]),
+                    bottom=float(bbox_val["y"] + bbox_val["height"]),
+                )
+
+        if bbox is None:
+            return None
+
+        raw_track = item.get("track_id")
+        track_id: Optional[int] = None
+        if raw_track is not None:
+            try:
+                track_id = int(raw_track)
+            except (ValueError, TypeError):
+                track_id = None
+
+        raw_conf = item.get("confidence")
+        confidence: Optional[float] = None
+        if raw_conf is not None:
+            try:
+                confidence = float(raw_conf)
+            except (ValueError, TypeError):
+                confidence = None
+
+        return RawDetection(
+            camera_id=camera_id,
+            frame_id=frame_id,
+            timestamp_utc=timestamp_utc,
+            class_name=str(item.get("class_name", item.get("label", "person"))),
+            bbox=bbox,
+            track_id=track_id,
+            confidence=confidence,
+            source=source,
         )
-    elif isinstance(bbox_val, dict):
-        if "left" in bbox_val and "right" in bbox_val:
-            bbox = BoundingBox(
-                left=float(bbox_val["left"]),
-                top=float(bbox_val["top"]),
-                right=float(bbox_val["right"]),
-                bottom=float(bbox_val["bottom"]),
-            )
-        elif "x" in bbox_val and "width" in bbox_val:
-            bbox = BoundingBox(
-                left=float(bbox_val["x"]),
-                top=float(bbox_val["y"]),
-                right=float(bbox_val["x"] + bbox_val["width"]),
-                bottom=float(bbox_val["y"] + bbox_val["height"]),
-            )
-
-    if bbox is None:
+    except Exception:
         return None
-
-    raw_track = item.get("track_id")
-    track_id = int(raw_track) if raw_track is not None else None
-
-    raw_conf = item.get("confidence")
-    confidence = float(raw_conf) if raw_conf is not None else None
-
-    return RawDetection(
-        camera_id=camera_id,
-        frame_id=frame_id,
-        timestamp_utc=timestamp_utc,
-        class_name=item.get("class_name", item.get("label", "person")),
-        bbox=bbox,
-        track_id=track_id,
-        confidence=confidence,
-        source=source,
-    )

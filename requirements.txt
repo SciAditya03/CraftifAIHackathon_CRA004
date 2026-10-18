@@ -1,0 +1,7 @@
+# Workplace Safety Sentinel - Track A Dependencies
+# Note: Core safety logic, JSONL logging, ray casting, and unit tests run with ZERO external dependencies (Python 3.8+ stdlib).
+
+# Optional external dispatchers and testing tools:
+paho-mqtt>=1.6.1       # Optional: for live MQTT alert broadcasting
+jsonschema>=4.18.0     # Optional: for external CLI schema validation
+pytest>=7.4.0          # Optional: alternative test runner

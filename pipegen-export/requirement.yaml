@@ -1,0 +1,39 @@
+# CraftifAI PipeGen v0.5.1 - Stage 1: Requirement Specification
+project_name: "Workplace-Safety-Sentinel"
+version: "1.0.0"
+date_created: "2026-10-18T10:15:00Z"
+
+application:
+  domain: "industrial_workplace_safety"
+  objective: "Detect personnel intrusion into hazardous machinery zones and generate actionable incident logs."
+  source_type: "video_file" # or rtsp / usb_camera
+  sample_input: "test_assets/industrial_safety_sample.mp4"
+
+performance_requirements:
+  target_fps: 30
+  max_latency_ms: 33.3
+  target_precision: "FP16"
+
+hardware_target:
+  architecture: "x86_64"
+  os: "Ubuntu 22.04 LTS"
+  gpu: "NVIDIA RTX 4070 / Jetson Orin Nano / AGX Orin"
+  jetpack_version: "6.0"
+  tensorrt_version: "10.0"
+  deepstream_version: "7.0"
+
+perception_requirements:
+  target_classes:
+    - name: "person"
+      id: 0
+      min_confidence: 0.65
+  tracking_required: true
+  tracker_algorithm: "NvSORT" # or NvDCF
+
+output_requirements:
+  actionable_format: "JSONL"
+  schema: "safety_events.schema_version_1.0"
+  event_types:
+    - "ZONE_INTRUSION"
+    - "ZONE_CLEAR"
+    - "SYSTEM_HEALTH"

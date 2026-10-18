@@ -1,0 +1,10 @@
+{"camera_id":"video-demo-01","frame_id":1,"timestamp_utc":"2026-10-18T12:00:00.000Z","detections":[{"track_id":12,"class_name":"person","confidence":0.89,"bbox":[0.1,0.1,0.2,0.35]}]}
+{"camera_id":"video-demo-01","frame_id":2,"timestamp_utc":"2026-10-18T12:00:00.033Z","detections":[{"track_id":12,"class_name":"person","confidence":0.91,"bbox":[0.15,0.15,0.25,0.4]}]}
+{"camera_id":"video-demo-01","frame_id":3,"timestamp_utc":"2026-10-18T12:00:00.066Z","detections":[{"track_id":12,"class_name":"person","confidence":0.93,"bbox":[0.35,0.3,0.45,0.55]}]}
+{"camera_id":"video-demo-01","frame_id":4,"timestamp_utc":"2026-10-18T12:00:00.100Z","detections":[{"track_id":12,"class_name":"person","confidence":0.95,"bbox":[0.4,0.35,0.5,0.6]}]}
+{"camera_id":"video-demo-01","frame_id":5,"timestamp_utc":"2026-10-18T12:00:00.133Z","detections":[{"track_id":12,"class_name":"person","confidence":0.94,"bbox":[0.42,0.35,0.52,0.6]}]}
+{"camera_id":"video-demo-01","frame_id":6,"timestamp_utc":"2026-10-18T12:00:00.166Z","detections":[{"track_id":12,"class_name":"person","confidence":0.92,"bbox":[0.43,0.36,0.53,0.61]}]}
+{"camera_id":"video-demo-01","frame_id":7,"timestamp_utc":"2026-10-18T12:00:00.200Z","detections":[{"track_id":12,"class_name":"person","confidence":0.91,"bbox":[0.45,0.37,0.55,0.62]}]}
+{"camera_id":"video-demo-01","frame_id":8,"timestamp_utc":"2026-10-18T12:00:00.233Z","detections":[{"track_id":12,"class_name":"person","confidence":0.88,"bbox":[0.8,0.7,0.9,0.95]}]}
+{"camera_id":"video-demo-01","frame_id":9,"timestamp_utc":"2026-10-18T12:00:00.266Z","detections":[{"track_id":12,"class_name":"person","confidence":0.89,"bbox":[0.82,0.72,0.92,0.96]}]}
+{"camera_id":"video-demo-01","frame_id":10,"timestamp_utc":"2026-10-18T12:00:00.300Z","detections":[{"track_id":12,"class_name":"person","confidence":0.91,"bbox":[0.85,0.75,0.95,0.98]}]}

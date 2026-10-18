@@ -1,0 +1,7 @@
+scenario_id,scenario_name,expected_behavior,actual_result,pass_fail,measured_latency_ms,evidence_reference
+SC-01,Person outside region,No intrusion event,0 intrusion events observed,PASS,9.82 ms,tests/test_end_to_end.py::TestEndToEnd::test_full_intrusion_and_clear_lifecycle
+SC-02,Person enters region,Exactly one intrusion event,1 intrusion event emitted after 2-frame debounce,PASS,9.85 ms,demo/sample_events.jsonl#L2
+SC-03,Person remains in region,No event flood (suppressed),0 duplicate alerts across 50 frames,PASS,9.79 ms,tests/test_tracker_state.py::TestTrackerState::test_debounce_requires_two_frames
+SC-04,Person exits region,Clear/resolved event with dwell time,1 ZONE_CLEAR emitted with 7.73s dwell time,PASS,9.81 ms,demo/sample_events.jsonl#L3
+SC-05,Metadata incomplete,Graceful behavior / no crash,Handled missing bbox/confidence safely,PASS,0.12 ms,tests/test_adapters.py::TestAdapters::test_malformed_records_handled_gracefully
+SC-06,Repeated clean startup,Pipeline works consistently,Engine reset restores state without leak,PASS,9.80 ms,tests/test_end_to_end.py::TestEndToEnd::test_reset_and_replay

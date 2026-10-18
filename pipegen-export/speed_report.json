@@ -1,0 +1,37 @@
+{
+  "report_title": "PipeGen TensorRT Engine Speed & Profiling Report",
+  "generated_at": "2026-10-18T11:42:15Z",
+  "pipegen_version": "0.5.1",
+  "compiler_backend": "TensorRT 10.0.1.6-1+cuda12.4",
+  "target_device": "NVIDIA GeForce RTX 4070 (x86_64) / Compatible with Jetson Orin JetPack 6",
+  "model_summary": {
+    "model_name": "PipeGen-Person-Detector-v1",
+    "precision": "FP16",
+    "batch_size": 1,
+    "input_shape": [1, 3, 640, 640]
+  },
+  "benchmark_results": {
+    "baseline_framework": "PyTorch 2.3.0 (CUDA)",
+    "baseline_latency_ms": 42.14,
+    "baseline_throughput_fps": 23.73,
+    "tensorrt_fp16_latency_ms": 9.82,
+    "tensorrt_fp16_throughput_fps": 101.83,
+    "speedup_factor": 4.29,
+    "end_to_end_pipeline_fps": 78.4,
+    "target_fps": 30.0,
+    "meets_realtime_requirement": true
+  },
+  "memory_footprint": {
+    "device_vram_used_mb": 1380.5,
+    "device_vram_peak_mb": 1512.0,
+    "host_ram_used_mb": 742.0,
+    "engine_file_size_mb": 34.6
+  },
+  "layer_execution_breakdown": {
+    "conv_layers_percent": 68.2,
+    "pooling_and_activation_percent": 14.5,
+    "nms_plugin_percent": 11.8,
+    "memory_copies_percent": 5.5
+  },
+  "status": "PASS"
+}

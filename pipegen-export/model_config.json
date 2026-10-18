@@ -1,0 +1,32 @@
+{
+  "model_name": "PipeGen-Person-Detector-v1",
+  "source_framework": "ONNX",
+  "onnx_file": "person_detector_640.onnx",
+  "engine_file": "model_b1_gpu0_fp16.engine",
+  "network_type": "object_detector",
+  "network_mode": "FP16",
+  "batch_size": 1,
+  "input_dimensions": {
+    "channels": 3,
+    "width": 640,
+    "height": 640
+  },
+  "color_format": "RGB",
+  "normalization": {
+    "scale_factor": 0.003921569793462753,
+    "mean": [0.0, 0.0, 0.0]
+  },
+  "postprocessing": {
+    "nms_iou_threshold": 0.45,
+    "confidence_threshold": 0.65,
+    "num_classes": 1,
+    "class_labels": ["person"]
+  },
+  "compiler_options": {
+    "tensorrt_version": "10.0.1",
+    "workspace_size_mb": 2048,
+    "dla_core": -1,
+    "enable_fp16": true,
+    "enable_int8": false
+  }
+}

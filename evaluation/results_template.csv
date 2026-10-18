@@ -1,0 +1,4 @@
+platform_name,compute_architecture,tensorrt_version,model_name,precision,batch_size,latency_ms,throughput_fps,vram_used_mb,status
+NVIDIA RTX 4070 (Host),x86_64 Ada Lovelace,10.0.1,PipeGen-Person-Detector-v1,FP16,1,9.82,101.8,1380.5,VERIFIED
+NVIDIA Jetson Orin Nano,ARM64 Ampere,10.0.1,PipeGen-Person-Detector-v1,FP16,1,22.40,44.6,920.0,TARGET_SPEC
+NVIDIA Jetson AGX Orin,ARM64 Ampere,10.0.1,PipeGen-Person-Detector-v1,FP16,1,7.15,139.8,1450.0,TARGET_SPEC

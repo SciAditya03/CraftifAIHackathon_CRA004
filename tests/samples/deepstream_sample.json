@@ -1,0 +1,31 @@
+{
+  "version": "4.0",
+  "id": "ds-event-001",
+  "@timestamp": "2026-10-18T12:00:00.000Z",
+  "sensorId": "camera-robotic-cell-01",
+  "frame_id": 142,
+  "objects": [
+    {
+      "id": "27",
+      "type": "person",
+      "confidence": 0.932,
+      "bbox": {
+        "topleftx": 640.0,
+        "toplefty": 380.0,
+        "bottomrightx": 820.0,
+        "bottomrighty": 720.0
+      }
+    },
+    {
+      "id": "28",
+      "type": "person",
+      "confidence": 0.887,
+      "bbox": {
+        "topleftx": 120.0,
+        "toplefty": 200.0,
+        "bottomrightx": 260.0,
+        "bottomrighty": 500.0
+      }
+    }
+  ]
+}

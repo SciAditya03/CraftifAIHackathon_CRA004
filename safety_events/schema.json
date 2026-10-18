@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkplaceSafetyEvent",
+  "description": "Standardized event schema for PipeGen/DeepStream workplace safety analytics and zone intrusion detection.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_type",
+    "timestamp_utc",
+    "camera_id",
+    "class_name",
+    "zone_id",
+    "severity",
+    "status",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["1.0"],
+      "description": "Schema version indicator for forward/backward compatibility."
+    },
+    "event_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this specific event instance."
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "ZONE_INTRUSION",
+        "ZONE_CLEAR",
+        "SYSTEM_HEALTH"
+      ],
+      "description": "Category of safety event detected."
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp of when the event occurred (e.g. 2026-10-18T12:00:00Z)."
+    },
+    "camera_id": {
+      "type": "string",
+      "description": "Unique identifier for camera stream or video file source."
+    },
+    "track_id": {
+      "type": ["integer", "null"],
+      "description": "Unique tracking ID from tracker (e.g. NvSORT/NvDCF/DeepSORT). Null if tracking is not enabled."
+    },
+    "class_name": {
+      "type": "string",
+      "description": "Detected object class (e.g. 'person', 'worker', 'forklift')."
+    },
+    "confidence": {
+      "type": ["number", "null"],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "Detection confidence score between 0.0 and 1.0. Null if unavailable."
+    },
+    "zone_id": {
+      "type": "string",
+      "description": "Identifier of the restricted safety zone."
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "description": "Severity level of the event."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "cleared", "info"],
+      "description": "Lifecycle state of the safety event."
+    },
+    "source": {
+      "type": "string",
+      "description": "Inference and pipeline source (e.g. 'pipegen-deepstream')."
+    },
+    "bbox": {
+      "type": ["array", "null"],
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "Optional bounding box coordinates [left, top, right, bottom]."
+    },
+    "dwell_time_seconds": {
+      "type": ["number", "null"],
+      "minimum": 0.0,
+      "description": "Dwell time inside restricted zone in seconds."
+    },
+    "details": {
+      "type": ["object", "null"],
+      "description": "Optional extra metadata (e.g. frame number, membership rule, speed)."
+    }
+  },
+  "additionalProperties": false
+}

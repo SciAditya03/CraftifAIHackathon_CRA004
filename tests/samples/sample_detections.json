@@ -1,0 +1,47 @@
+[
+  {
+    "camera_id": "video-demo-01",
+    "frame_id": 1,
+    "timestamp_utc": "2026-10-18T12:00:00.000Z",
+    "class_name": "person",
+    "track_id": 12,
+    "confidence": 0.92,
+    "bbox": [0.1, 0.1, 0.2, 0.35]
+  },
+  {
+    "camera_id": "video-demo-01",
+    "frame_id": 2,
+    "timestamp_utc": "2026-10-18T12:00:00.033Z",
+    "class_name": "person",
+    "track_id": 12,
+    "confidence": 0.94,
+    "bbox": [0.35, 0.3, 0.45, 0.55]
+  },
+  {
+    "camera_id": "video-demo-01",
+    "frame_id": 3,
+    "timestamp_utc": "2026-10-18T12:00:00.066Z",
+    "class_name": "person",
+    "track_id": 12,
+    "confidence": 0.91,
+    "bbox": [0.4, 0.35, 0.5, 0.6]
+  },
+  {
+    "camera_id": "video-demo-01",
+    "frame_id": 4,
+    "timestamp_utc": "2026-10-18T12:00:00.100Z",
+    "class_name": "person",
+    "track_id": 12,
+    "confidence": 0.95,
+    "bbox": [0.42, 0.35, 0.52, 0.6]
+  },
+  {
+    "camera_id": "video-demo-01",
+    "frame_id": 5,
+    "timestamp_utc": "2026-10-18T12:00:00.133Z",
+    "class_name": "person",
+    "track_id": 12,
+    "confidence": 0.93,
+    "bbox": [0.85, 0.7, 0.95, 0.95]
+  }
+]
